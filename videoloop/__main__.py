@@ -11,7 +11,7 @@ def check_positive(value):
 
 parser = argparse.ArgumentParser(
     description='Create loops of a video. Clips are overlapped with fade transition.')
-parser.add_argument('file', metavar='FILENAME',
+parser.add_argument('file', metavar='FILENAME', type=argparse.FileType('rb'),
                     help='Video file whose loop is required')
 
 requiredNamed = parser.add_argument_group('required arguments')
