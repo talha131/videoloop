@@ -1,4 +1,5 @@
 import argparse
+from .video import clip_duration
 
 
 def check_positive(value):
@@ -21,7 +22,8 @@ required.add_argument('-t', '--time', metavar='MINUTES', required=True, type=che
 
 def main():
     args = parser.parse_args()
-    print(args)
+    print(args.file.name)
+    clip_duration(args.file.name)
 
 
 if __name__ == '__main__':
