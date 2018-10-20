@@ -12,6 +12,19 @@ def check_positive(value):
     return ivalue
 
 
+def secondsToText(secs):
+    days = secs//86400
+    hours = (secs - days*86400)//3600
+    minutes = (secs - days*86400 - hours*3600)//60
+    seconds = secs - days*86400 - hours*3600 - minutes*60
+    result = ("{0} day{1}, ".format(days, "s" if days != 1 else "") if days else "") + \
+        ("{0} hour{1}, ".format(hours, "s" if hours != 1 else "") if hours else "") + \
+        ("{0} minute{1}, ".format(minutes, "s" if minutes != 1 else "") if minutes else "") + \
+        ("{0} second{1}".format(
+            seconds, "s" if seconds != 1 else "") if seconds else "")
+    return result
+
+
 parser = argparse.ArgumentParser(
     description='Create loops of a video. Clips are overlapped with fade transition.')
 parser.add_argument('file', metavar='FILENAME', type=argparse.FileType('rb'),
@@ -50,6 +63,8 @@ def main():
     count = int((args.time * 60 - args.duration + clip_d -
                  args.duration - 1) // (clip_d - args.duration))
     concat_video(args.file.name, count, args.duration, args.output)
+    print(f'Output duration: {secondsToText(clip_duration(args.output))}')
+    sys.exit(0)
 
 
 if __name__ == '__main__':
