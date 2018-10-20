@@ -1,7 +1,7 @@
 import argparse
 import sys
 import os
-from .helper import check_positive, secondsToText
+from .helper import check_positive, seconds_to_text
 from .video import clip_duration, concat_video
 
 
@@ -43,7 +43,7 @@ def main():
     count = int((args.time * 60 - args.duration + clip_d -
                  args.duration - 1) // (clip_d - args.duration))
     concat_video(args.file.name, count, args.duration, args.output)
-    print(f'Output duration: {secondsToText(clip_duration(args.output))}')
+    print(f'Output duration: {seconds_to_text(clip_duration(args.output))}')
     sys.exit(0)
 
 

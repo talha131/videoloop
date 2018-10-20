@@ -6,7 +6,7 @@ def check_positive(value):
     return ivalue
 
 
-def secondsToText(secs):
+def seconds_to_text(secs):
     days = secs//86400
     hours = (secs - days*86400)//3600
     minutes = (secs - days*86400 - hours*3600)//60
