@@ -1,4 +1,5 @@
 import argparse
+import sys
 from .video import clip_duration
 
 
@@ -15,7 +16,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('file', metavar='FILENAME', type=argparse.FileType('rb'),
                     help='Video file whose loop is required')
 
-parser.add_argument('-d', '--duration', metavar='SECONDS', type=check_positive,
+parser.add_argument('-d', '--duration', metavar='SECONDS', type=check_positive, default=2,
                     help='Fade transition duration')
 
 required = parser.add_argument_group('required arguments')
@@ -25,8 +26,9 @@ required.add_argument('-t', '--time', metavar='MINUTES', required=True, type=che
 
 def main():
     args = parser.parse_args()
-    print(args.file.name)
-    clip_duration(args.file.name)
+    clip_d = clip_duration(args.file.name)
+    if clip_d <= args.duration:
+        sys.exit('Transition duration must be less than clip duration')
 
 
 if __name__ == '__main__':
