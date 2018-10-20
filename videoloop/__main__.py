@@ -38,6 +38,14 @@ def main():
             args.time * 60, clip_d, 'seconds'))
         sys.exit(1)
 
+    # Formula is
+    # count = (required_duration - transition_duration) / (clip_duration - transition_duration)
+    # To get ceiling result,
+    # (n + d - 1) /d
+    count = (args.time * 60 - args.duration + clip_d -
+             args.duration - 1) // (clip_d - args.duration)
+    print('count', count)
+
 
 if __name__ == '__main__':
     main()
