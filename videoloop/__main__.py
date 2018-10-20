@@ -1,6 +1,6 @@
 import argparse
 import sys
-from .video import clip_duration
+from .video import clip_duration, concat_video
 
 
 def check_positive(value):
@@ -42,9 +42,9 @@ def main():
     # count = (required_duration - transition_duration) / (clip_duration - transition_duration)
     # To get ceiling result,
     # (n + d - 1) /d
-    count = (args.time * 60 - args.duration + clip_d -
-             args.duration - 1) // (clip_d - args.duration)
-    print('count', count)
+    count = int((args.time * 60 - args.duration + clip_d -
+                 args.duration - 1) // (clip_d - args.duration))
+    concat_video(args.file.name, count, args.duration)
 
 
 if __name__ == '__main__':
