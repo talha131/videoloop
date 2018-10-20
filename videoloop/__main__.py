@@ -32,7 +32,7 @@ parser.add_argument('file', metavar='FILENAME', type=argparse.FileType('rb'),
 
 parser.add_argument('-d', '--duration', metavar='SECONDS', type=check_positive, default=2,
                     help='Fade transition duration')
-parser.add_argument('-o', '--output', metavar='OUTPUT_FILENAME', type=argparse.FileType('wb'),
+parser.add_argument('-o', '--output', metavar='OUTPUT_FILENAME', type=str,
                     help='Output video file name. Default is FILENAME_MINUTES.mp4. WARNING: Overwrites existing file.')
 
 required = parser.add_argument_group('required arguments')
