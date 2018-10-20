@@ -32,15 +32,19 @@ def main():
         print('Transition: {0} {2}\nClip: {1} {2}'.format(
             args.duration, clip_d, 'seconds'))
         sys.exit(1)
-    if clip_d <= args.time:
+    if clip_d >= (args.time * 60):
         print('Required duration must be greater than clip duration')
         print('Required: {0} {2}\nClip: {1} {2}'.format(
             args.time * 60, clip_d, 'seconds'))
         sys.exit(1)
+
+    # Output file name
     temp = os.path.splitext(args.file.name)
     args.output = args.output if args.output else f'{temp[0]}_{args.time}{temp[1]}'
 
+    # transition duration
     t_duration = int(clip_d // 2 if args.half_duration else args.duration)
+
     # Formula is
     # count = (required_duration - transition_duration) / (clip_duration - transition_duration)
     # To get ceiling result,
