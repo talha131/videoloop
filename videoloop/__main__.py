@@ -1,5 +1,6 @@
 import argparse
 import sys
+import os
 from .video import clip_duration, concat_video
 
 
@@ -18,6 +19,8 @@ parser.add_argument('file', metavar='FILENAME', type=argparse.FileType('rb'),
 
 parser.add_argument('-d', '--duration', metavar='SECONDS', type=check_positive, default=2,
                     help='Fade transition duration')
+parser.add_argument('-o', '--output', metavar='OUTPUT_FILENAME', type=argparse.FileType('wb'),
+                    help='Output video file name. Default is FILENAME_MINUTES.mp4')
 
 required = parser.add_argument_group('required arguments')
 required.add_argument('-t', '--time', metavar='MINUTES', required=True, type=check_positive,
@@ -37,6 +40,8 @@ def main():
         print('Required: {0} {2}\nClip: {1} {2}'.format(
             args.time * 60, clip_d, 'seconds'))
         sys.exit(1)
+    temp = os.path.splitext(args.file.name)
+    args.output = args.output if args.output else f'{temp[0]}_{args.time}{temp[1]}'
 
     # Formula is
     # count = (required_duration - transition_duration) / (clip_duration - transition_duration)
@@ -44,7 +49,7 @@ def main():
     # (n + d - 1) /d
     count = int((args.time * 60 - args.duration + clip_d -
                  args.duration - 1) // (clip_d - args.duration))
-    concat_video(args.file.name, count, args.duration)
+    concat_video(args.file.name, count, args.duration, args.output)
 
 
 if __name__ == '__main__':
