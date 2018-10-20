@@ -15,6 +15,9 @@ parser = argparse.ArgumentParser(
 parser.add_argument('file', metavar='FILENAME', type=argparse.FileType('rb'),
                     help='Video file whose loop is required')
 
+parser.add_argument('-d', '--duration', metavar='SECONDS', type=check_positive,
+                    help='Fade transition duration')
+
 required = parser.add_argument_group('required arguments')
 required.add_argument('-t', '--time', metavar='MINUTES', required=True, type=check_positive,
                       help='Required duration of the video loop')
