@@ -57,6 +57,14 @@ def main():
     # (n + d - 1) /d
     count = int((args.time * 60 - args.duration + clip_d -
                  t_duration - 1) // (clip_d - t_duration))
+    if count <= 1:
+        print(f'Clip should be concatenated at least twice')
+        print(f'Count: {count}')
+        print(f'Clip Duration: {clip_d}')
+        print(f'Required Duration: {args.time}')
+        print(f'Transition Duration: {t_duration}')
+        sys.exit(1)
+
     concat_video(args.file.name, count, t_duration, args.output)
     print(f'Output duration: {seconds_to_text(clip_duration(args.output))}')
     sys.exit(0)
