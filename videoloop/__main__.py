@@ -18,6 +18,8 @@ exclusive.add_argument('-d', '--duration', metavar='SECONDS', type=check_positiv
                        help='Fade transition duration')
 exclusive.add_argument('-dh', '--duration-half', action='store_true',
                        help='If present then fade transition duration is set to half of clip duration')
+exclusive.add_argument('-dq', '--duration-quarter', action='store_true',
+                       help='If present then fade transition duration is set to quarter of clip duration')
 
 required = parser.add_argument_group('required arguments')
 required.add_argument('-t', '--time', metavar='MINUTES', required=True, type=check_positive,
@@ -43,7 +45,11 @@ def main():
     args.output = args.output if args.output else f'{temp[0]}_{args.time}{temp[1]}'
 
     # transition duration
-    t_duration = int(clip_d // 2 if args.duration_half else args.duration)
+    t_duration = int(args.duration)
+    if args.duration_half:
+        t_duration = int(clip_d // 2)
+    elif args.duration_quarter:
+        t_duration = int(clip_d // 4)
 
     # Formula is
     # count = (required_duration - transition_duration) / (clip_duration - transition_duration)
