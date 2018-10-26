@@ -16,7 +16,7 @@ parser.add_argument('-o', '--output', metavar='OUTPUT_FILENAME', type=str,
 exclusive = parser.add_mutually_exclusive_group(required=True)
 exclusive.add_argument('-d', '--duration', metavar='SECONDS', type=check_positive, default=2,
                        help='Fade transition duration')
-exclusive.add_argument('-hd', '--half-duration', action='store_true',
+exclusive.add_argument('-dh', '--duration-half', action='store_true',
                        help='If present then fade transition duration is set to half of clip duration')
 
 required = parser.add_argument_group('required arguments')
@@ -43,7 +43,7 @@ def main():
     args.output = args.output if args.output else f'{temp[0]}_{args.time}{temp[1]}'
 
     # transition duration
-    t_duration = int(clip_d // 2 if args.half_duration else args.duration)
+    t_duration = int(clip_d // 2 if args.duration_half else args.duration)
 
     # Formula is
     # count = (required_duration - transition_duration) / (clip_duration - transition_duration)
