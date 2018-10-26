@@ -67,6 +67,7 @@ def main():
 
     concat_video(args.file.name, count, t_duration, args.output)
     print(f'Output duration: {seconds_to_text(clip_duration(args.output))}')
+    print(f'Clip Duration: {clip_d}\tTransition Duration: {t_duration}')
     sys.exit(0)
 
 
