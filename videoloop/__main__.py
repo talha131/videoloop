@@ -49,7 +49,7 @@ def main():
     if args.duration_half:
         t_duration = int(clip_d // 2)
     elif args.duration_quarter:
-        t_duration = int(clip_d // 4)
+        t_duration = int((clip_d + 4 - 1) // 4)
 
     # Formula is
     # count = (required_duration - transition_duration) / (clip_duration - transition_duration)
